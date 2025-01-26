@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Static Page with API Call</title>
+    <title>Static Page with API Redirect</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
         button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
-        pre { background: #f4f4f4; padding: 10px; text-align: left; }
     </style>
 </head>
 <body>
     <h1>Welcome to the Static Page</h1>
-    <p>Click the button below to call the API.</p>
-    <button onclick="callAPI()">Call API</button>
-    <pre id="output"></pre>
+    <p>Click the button below to navigate to the API response.</p>
+    <button onclick="redirectToAPI()">Go to API</button>
 
     <script>
         function getQueryParams() {
@@ -25,20 +23,14 @@
             };
         }
 
-        async function callAPI() {
+        function redirectToAPI() {
             const { userID, step } = getQueryParams();
             if (!userID || !step) {
                 alert("Missing userID or step in URL");
                 return;
             }
             
-            try {
-                const response = await fetch(`https://lendingdev3.finbox.in/v1/services/hdfc/redirect?userID=${userID}&step=${step}`);
-                const data = await response.json();
-                document.getElementById("output").textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById("output").textContent = "API Error: " + error;
-            }
+            window.location.href = `https://your-api.com/get-data?userID=${userID}&step=${step}`;
         }
     </script>
 </body>
